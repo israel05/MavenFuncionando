@@ -60,8 +60,7 @@ public class FXMLController implements Initializable {
 
 
      @FXML
-    private void btnClickMaria() {
-
+    private void btnClickMaria() throws SQLException, JRException, IOException {
         
     /**
      * Lanza un Jasper Reports a partir de su nombre sin extensión y teniendo alojado en resources>informes
@@ -76,7 +75,7 @@ public class FXMLController implements Initializable {
             ConexionBD conexion = new ConexionBD();
            
             JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/informes/Cherry.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(report, null, new JREmptyDataSource());
+            JasperPrint jprint = JasperFillManager.fillReport(report, null, new ConexionBD().getConexion());
             JasperViewer viewer = new JasperViewer(jprint, false);
             viewer.setVisible(true);
         } catch (Exception e) {
